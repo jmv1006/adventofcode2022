@@ -30,7 +30,7 @@ public class DayFive {
                 while(r <= data.length) {
                     String[] column = Arrays.copyOfRange(data, l, r + 1);
                     if(!(column[1].isBlank())) {
-                        stacks.get(stackNumber).add(column[1]);
+                        stacks.get(stackNumber).add(0,column[1]);
                     }
                     l += 4;
                     r += 4;
@@ -53,15 +53,44 @@ public class DayFive {
         }
     }
 
-    String handleStackMoves(int beingMoved, int initial, int dest) {
+    void handleStackMoves(int beingMoved, int initial, int dest) {
         Stack<String> initialStack = stacks.get(initial - 1);
         Stack<String> destinationStack = stacks.get(dest - 1);
-        return "M";
+
+        int pops = 0;
+
+        while(pops < beingMoved) {
+            String item = initialStack.pop();
+            destinationStack.push(item);
+            pops += 1;
+        }
+
+        destinationStack.peek();
     }
+
+    void getTops() {
+        for(String instruction : instructions) {
+            String[] instructionArr = instruction.split(" ");
+            int beingMoved = Integer.parseInt(instructionArr[1]);
+            int initial = Integer.parseInt(instructionArr[3]);
+            int dest = Integer.parseInt(instructionArr[5]);
+            handleStackMoves(beingMoved, initial, dest);
+        }
+
+        String res = "";
+        for(Stack<String> stack : stacks) {
+            res = res + stack.peek();
+        }
+
+        System.out.println(res);
+    }
+
+
 
     public static void main(String[] args) {
         DayFive day = new DayFive();
         day.readInput();
-        System.out.println(day.stacks);
+        day.getTops();
+
     }
 }
