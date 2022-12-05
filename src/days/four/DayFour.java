@@ -30,10 +30,7 @@ public class DayFour {
     boolean determineOverlap(int[] pair1, int[] pair2) {
         if(pair1[0] <= pair2[0] && pair1[1] >= pair2[1]) {
             return true;
-        } else if (pair2[0] <= pair1[0] && pair2[1] >= pair1[1]) {
-            return true;
-        }
-        return false;
+        } else return pair2[0] <= pair1[0] && pair2[1] >= pair1[1];
     }
 
     boolean determineOverlapPartTwo(int[] pair1, int[] pair2) {
