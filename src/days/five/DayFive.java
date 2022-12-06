@@ -68,13 +68,30 @@ public class DayFive {
         destinationStack.peek();
     }
 
+    void handleStackMovesPartTwo(int beingMoved, int initial, int dest) {
+        Stack<String> initialStack = stacks.get(initial - 1);
+        Stack<String> destinationStack = stacks.get(dest - 1);
+
+        String[] cratesBeingMoved = new String[beingMoved];
+
+        for(int i = beingMoved - 1; i >= 0; i--) {
+            cratesBeingMoved[i] = initialStack.pop();
+        }
+
+        //add crates being moved top of dest stack
+        for(String crate : cratesBeingMoved) {
+            destinationStack.push(crate);
+        }
+
+    }
+
     void getTops() {
         for(String instruction : instructions) {
             String[] instructionArr = instruction.split(" ");
             int beingMoved = Integer.parseInt(instructionArr[1]);
             int initial = Integer.parseInt(instructionArr[3]);
             int dest = Integer.parseInt(instructionArr[5]);
-            handleStackMoves(beingMoved, initial, dest);
+            handleStackMovesPartTwo(beingMoved, initial, dest);
         }
 
         String res = "";
