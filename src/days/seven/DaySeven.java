@@ -26,7 +26,7 @@ public class DaySeven {
         return directions;
     }
 
-    void test(String[] directions) {
+    void findSizes(String[] directions) {
         ArrayList<Directory> dirs = new ArrayList<>();
         Stack<Directory> dirStack = new Stack<>();
 
@@ -45,7 +45,7 @@ public class DaySeven {
                 if(directionArr[2].equals("..")) {
                     dirStack.pop();
                 } else {
-                    //go to a sub directory
+                    //go to the given subdirectory
                     Directory subDir = currDir.findSubDir(directionArr[2]);
                     dirStack.add(subDir);
                     dirs.add(subDir);
@@ -53,7 +53,7 @@ public class DaySeven {
                 continue;
             }
 
-            //is a sub dir
+            //create a sub directory
             if(directionArr[0].equals("dir")) {
                 currDir.addSubdir(new Directory(directionArr[1]));
                 continue;
@@ -63,13 +63,27 @@ public class DaySeven {
             if(!directionArr[0].equals("$")) currDir.addFile(new src.days.seven.File(Integer.parseInt(directionArr[0]), directionArr[1]));
         }
 
-        int sum = 0;
+        int homeDirSize = 0;
         for(Directory dir : dirs) {
             int size = getDirSize(dir);
-            if(size <= 100000) sum += size;
+            if(dir.name.equals("/")) homeDirSize = size;
         }
-        System.out.println(sum);
+
+        int total_space = 70_000_000;
+        int unused_space = total_space - homeDirSize;
+        int required_space = 30_000_000 - unused_space;
+
+        int smallest = homeDirSize;
+        for(Directory dir: dirs) {
+            int size = getDirSize(dir);
+            if(size > required_space) {
+                smallest = Math.min(smallest, size);
+            }
+        }
+        System.out.println(smallest);
     }
+
+
 
     int getDirSize(Directory dir) {
         if(dir.subDirs.size() == 0 && dir.files.size() == 0) return 0;
@@ -89,6 +103,6 @@ public class DaySeven {
     public static void main(String[] args) {
         DaySeven day = new DaySeven();
         String[] directions = day.readInput();
-        day.test(directions);
+        day.findSizes(directions);
     }
 }
