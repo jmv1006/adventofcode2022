@@ -1,9 +1,7 @@
 package src.days.seven;
 
-import java.awt.image.RasterOp;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.security.spec.RSAOtherPrimeInfo;
 import java.util.*;
 
 public class DaySeven {
