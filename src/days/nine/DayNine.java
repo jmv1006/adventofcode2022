@@ -148,12 +148,9 @@ public class DayNine {
                     knotPosition = determineTailPosition(knots.get(j), knots.get(j - 1));
                 }
 
-                //after each step, update the tail position
+                //after each step, add the current tail position to the set
                 tailPositions.add(Integer.toString(tailPosition[1]) + Integer.toString(tailPosition[0]));
             }
-        }
-        for(int[] knot : knots) {
-            System.out.println(Arrays.toString(knot));
         }
         System.out.println(tailPositions.size());
     }
