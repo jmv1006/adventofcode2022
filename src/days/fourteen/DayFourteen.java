@@ -212,7 +212,11 @@ public class DayFourteen {
 
     public static void main(String[] args) {
         DayFourteen day = new DayFourteen();
+        long startTime = System.nanoTime();
         ArrayList<String> directions = day.readInput();
         day.startScan(directions);
+        long endTime = System.nanoTime();
+        long duration = (endTime - startTime) / 1000000;  //divide by 1000000 to get millisecon ds.
+        System.out.println(duration);
     }
 }
